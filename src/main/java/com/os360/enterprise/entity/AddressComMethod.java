@@ -1,4 +1,4 @@
-package com.os360.enterprise.dto;
+package com.os360.enterprise.entity;
 
 public class AddressComMethod extends CommunicationMethod{
     /** ISO 3166-1 alpha-2 country code (e.g., "US", "LK") */

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v2/persons")
 public class PersonControllerV1 {
 
-    @Autowired
-    PersonV1DTO person;
-
-    @GetMapping
-    public PersonV1DTO getPerson(){
-        return person;
-    }
+//    @Autowired
+//    PersonV1DTO person;
+//
+//    @GetMapping
+//    public PersonV1DTO getPerson(){
+//        return person;
+//    }
 
 
 }

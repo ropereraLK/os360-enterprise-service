@@ -1,8 +1,7 @@
-package com.os360.enterprise.dto;
+package com.os360.enterprise.entity;
 
 import com.os360.enterprise.enumurations.PartyType;
 
-import java.util.List;
 import java.util.UUID;
 
 public abstract class  Party {

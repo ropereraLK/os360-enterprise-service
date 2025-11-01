@@ -1,4 +1,4 @@
-package com.os360.enterprise.dto;
+package com.os360.enterprise.entity;
 
 import com.os360.enterprise.enumurations.ContactContextType;
 import com.os360.enterprise.enumurations.PhoneServiceType;
