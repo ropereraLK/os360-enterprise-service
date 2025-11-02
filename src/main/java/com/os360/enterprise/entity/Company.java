@@ -25,9 +25,9 @@ public class Company extends Party {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private Set<CompanyTimeZone> timeZones;
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
-    private Set<CompanyLanguage> companyLanguages;
+//TODO
+//    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+//    private Set<CompanyLanguage> companyLanguages;
 
     //Validations
     @Column(name = "valid_from", nullable = false)

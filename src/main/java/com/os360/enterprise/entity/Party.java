@@ -25,9 +25,10 @@ public abstract class Party {
     @Column(name = "country_code", length = 2)
     private String countryCode;// ISO Country Code 2 Letters
 
+    //TODO
     //Addresses, emails and phones are handled in CommunicationMethod
-    @OneToMany(mappedBy = "party")
-    private Set<CommunicationMethod> communicationMethods;
+    //    @OneToMany(mappedBy = "party")
+    //    private Set<CommunicationMethod> communicationMethods;
 
     @OneToMany(mappedBy = "party")
     private Set<Document> documents;

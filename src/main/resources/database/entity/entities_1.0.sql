@@ -72,13 +72,13 @@ ON company_time_zone (company_id);
 -- ================================
 -- Table: company_language
 -- ================================
-CREATE TABLE company_language (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    company_id UUID NOT NULL,
-    language_code VARCHAR(10) NOT NULL,
-    CONSTRAINT fk_cl_company FOREIGN KEY (company_id)
-        REFERENCES company (id) ON DELETE CASCADE
-);
+--CREATE TABLE company_language (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    company_id UUID NOT NULL,
+--    language_code VARCHAR(10) NOT NULL,
+--    CONSTRAINT fk_cl_company FOREIGN KEY (company_id)
+--        REFERENCES company (id) ON DELETE CASCADE
+--);
 
 -- ================================
 -- Table: site
