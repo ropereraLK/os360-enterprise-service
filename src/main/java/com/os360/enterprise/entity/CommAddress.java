@@ -1,6 +1,6 @@
 package com.os360.enterprise.entity;
 
-public class AddressComMethod extends CommunicationMethod{
+public class CommAddress extends CommunicationMethod{
     /** ISO 3166-1 alpha-2 country code (e.g., "US", "LK") */
     private String countryCode;
 

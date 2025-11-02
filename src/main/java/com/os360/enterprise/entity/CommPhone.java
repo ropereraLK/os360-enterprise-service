@@ -5,7 +5,7 @@ import com.os360.enterprise.enumurations.PhoneServiceType;
 
 import java.util.Set;
 
-public class PhoneComMethod extends CommunicationMethod{
+public class CommPhone extends CommunicationMethod{
     private String phoneNumber;
     private ContactContextType contextType;
     private String verificationToken;

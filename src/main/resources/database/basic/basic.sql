@@ -1,0 +1,11 @@
+--Create db
+CREATE DATABASE os360_enterprise;
+
+--User
+CREATE USER os360_user WITH PASSWORD 'os360P@ssword';
+CREATE USER os360_admin WITH PASSWORD 'os360P@ssword@dmin';
+ALTER ROLE os360_admin WITH SUPERUSER CREATEDB CREATEROLE LOGIN;
+GRANT CONNECT ON DATABASE os360_enterprise TO os360_user;
+
+
+
