@@ -1,9 +1,21 @@
 package com.os360.enterprise.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "company")
 public class Company extends Party {
 
     @Column(name = "code", nullable = false, unique = true)
@@ -31,10 +43,10 @@ public class Company extends Party {
 
     //Validations
     @Column(name = "valid_from", nullable = false)
-    private Date validFrom;
+    private LocalDate validFrom;
 
     @Column(name = "valid_to", nullable = false)
-    private Date validTo;
+    private LocalDate validTo;
 
     @Column(name = "is_system_company", nullable = false)
     private boolean isSystemCompany;

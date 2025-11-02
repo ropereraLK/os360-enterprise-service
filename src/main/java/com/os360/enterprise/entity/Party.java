@@ -1,11 +1,22 @@
 package com.os360.enterprise.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "party")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Party {
     //KEYS
     @Id
@@ -30,8 +41,8 @@ public abstract class Party {
     //    @OneToMany(mappedBy = "party")
     //    private Set<CommunicationMethod> communicationMethods;
 
-    @OneToMany(mappedBy = "party")
-    private Set<Document> documents;
+//    @OneToMany(mappedBy = "party")
+//    private Set<Document> documents;
 
     //VALIDATIONS
     @Column(name = "is_active", nullable = false)

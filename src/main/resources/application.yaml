@@ -1,3 +1,18 @@
 spring:
   application:
     name: Enterprise Service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/os360_enterprise
+    username: os360_user
+    password: os360P@ssword
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: never  # DB already created
+  jpa:
+    hibernate:
+      ddl-auto: validate   # checks entities against DB
+    show-sql: true         # optional in dev
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC

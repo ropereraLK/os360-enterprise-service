@@ -24,6 +24,9 @@ CREATE TABLE party (
 ALTER TABLE party
 ADD CONSTRAINT party_uc_external_system UNIQUE (external_system, external_id);
 
+ALTER TABLE party
+ALTER COLUMN country_code TYPE VARCHAR(2);
+
 CREATE INDEX party_idx_type ON party (party_type);
 CREATE INDEX party_idx_external_system ON party (external_system, external_id);
 CREATE INDEX party_idx_is_active ON party (is_active);
