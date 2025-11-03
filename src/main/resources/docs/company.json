@@ -1,0 +1,54 @@
+[{
+  "code": "ABC123",
+  "name": "Acme Corporation",
+  "parentCompany": null,
+  "logoUrl": null,
+  "timeZones": null,
+  "sites":null,
+  "validFrom": null,
+  "validTo":null,
+  "isSystemCompany": null,
+  "partyType": null,
+  "countryCode": "LK",
+  "isActive": null,
+  "isDeleted": null
+},
+{
+"code": "ABC123",
+"name": "Acme Corporation",
+"parentCompany": null,
+"logoUrl": "https://example.com/logo.png",
+"timeZones": [
+{
+"id": 1,
+"timeZone": "Asia/Colombo",
+"isDefault": true
+},
+{
+"id": 2,
+"timeZone": "Asia/Kolkata",
+"isDefault": false
+}
+],
+"sites": [
+{
+"siteCode": "SITE01",
+"siteName": "Head Office",
+"siteType": "HEAD_OFFICE",
+"siteTimeZone": {
+"id": 1
+},
+"isDefault": true,
+"isActive": true,
+"isDeleted": false
+}
+],
+"validFrom": "1900-01-01",
+"validTo": "9999-01-01",
+"isSystemCompany": false,
+"partyType": "COMPANY",
+"countryCode": "LK",
+"isActive": true,
+"isDeleted": false
+}]
+

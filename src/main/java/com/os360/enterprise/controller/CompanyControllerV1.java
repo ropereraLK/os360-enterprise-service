@@ -40,7 +40,8 @@ public class CompanyControllerV1 {
     @PostMapping
     public ResponseEntity<CompanyResponse> createCompany(
             @RequestBody CompanyCreateRequest companyCreateRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(companyResponse);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(companyService.create(companyCreateRequest));
     }
 
     @PutMapping("/{id}")
