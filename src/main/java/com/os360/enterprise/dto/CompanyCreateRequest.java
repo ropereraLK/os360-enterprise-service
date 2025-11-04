@@ -43,6 +43,7 @@ public class CompanyCreateRequest {
     //TODO
     // private Set<Site> sites;
     // private Set<CompanyTimeZone> timeZones;
+    
     private Boolean isSystemCompany;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
