@@ -11,7 +11,6 @@ public class CompanyMapper {
     public Optional<CompanyResponse> toResponse(Company entity) {
         CompanyResponse dto = new CompanyResponse();
         BeanUtils.copyProperties(entity, dto);
-
         return Optional.of(dto);
     }
 
