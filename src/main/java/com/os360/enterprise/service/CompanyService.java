@@ -6,9 +6,11 @@ import com.os360.enterprise.entity.Company;
 import com.os360.enterprise.mapper.CompanyMapper;
 import com.os360.enterprise.repository.CompanyRepository;
 import com.os360.enterprise.validator.CompanyValidator;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -34,7 +36,10 @@ public class CompanyService {
         return companyResponse;
     }
 
-    public CompanyResponse get(UUID id) {
-        return companyMapper.toResponse(companyRepository.findById(id));
+    public Optional<CompanyResponse> get(UUID id) {
+        Company company = companyRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Company not found: " + id));
+
+        return companyMapper.toResponse(company);
     }
 }
