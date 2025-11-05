@@ -1,7 +1,7 @@
 package com.os360.enterprise.controller;
 
+import com.os360.enterprise.base.IntegrationTestBase;
 import com.os360.enterprise.repository.CompanyRepository;
-import com.os360.enterprise.service.CompanyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -25,25 +24,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application-test.yml")
 @Transactional
 @SpringBootTest
-class CompanyControllerV1IT {
-
-    @SpringBootApplication(scanBasePackages = {"com.os360.enterprise"},
-            exclude = {ErrorMvcAutoConfiguration.class})
-    static class TestConfig {
-        // Nested config to exclude ErrorMvcAutoConfiguration
-    }
-
-    @Autowired
-    private MockMvc mockMvc;
+class CompanyControllerV1IT extends IntegrationTestBase {
 
     @Autowired
     private CompanyRepository companyRepository;
 
     @BeforeEach
     void setUp() {
-        companyRepository.deleteAll();
+        clearRepository(companyRepository);
     }
-
+    
     @Test
     void testCreateCompany() throws Exception {
         String json = """
