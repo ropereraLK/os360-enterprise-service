@@ -5,14 +5,11 @@ import com.os360.enterprise.repository.CompanyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
 
 import jakarta.transaction.Transactional;
 
@@ -33,9 +30,9 @@ class CompanyControllerV1IT extends IntegrationTestBase {
     void setUp() {
         clearRepository(companyRepository);
     }
-    
+
     @Test
-    void testCreateCompany() throws Exception {
+    void testCreateCompany1() throws Exception {
         String json = """
                 {
                     "code": "OS361",
@@ -58,6 +55,25 @@ class CompanyControllerV1IT extends IntegrationTestBase {
                 .andExpect(jsonPath("$.validFrom").value("2025-11-01"))
                 .andExpect(jsonPath("$.validTo").value("2095-12-31")
                 //.andExpect(jsonPath("$.isActive").value(true)
+                );
+    }
+
+    @Test
+    void testCreateCompany2() throws Exception {
+        String json = """
+                {
+                    "name": "Open Suite 361",
+                    "countryCode": "US",
+                    "logoUrl": "https://example.com/logo.png",
+                    "validFrom": "2025-11-01",
+                    "validTo": "2095-12-31"
+                }
+                """;
+
+        mockMvc.perform(post("/api/v1/companies")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(status().isBadRequest()
                 );
     }
 }

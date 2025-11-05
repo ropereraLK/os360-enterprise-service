@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +56,7 @@ public class CompanyControllerV1 {
     })
     @PostMapping
     public ResponseEntity<Optional<CompanyResponse>> createCompany(
-            @RequestBody CompanyCreateRequest companyCreateRequest) {
+            @RequestBody @Valid CompanyCreateRequest companyCreateRequest) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.create(companyCreateRequest));
     }
@@ -63,7 +64,7 @@ public class CompanyControllerV1 {
     @PutMapping("/{id}")
     public ResponseEntity<CompanyResponse> updateCompany(
             @PathVariable UUID id,
-            @RequestBody CompanyCreateRequest companyCreateRequest) {
+            @RequestBody @Valid CompanyCreateRequest companyCreateRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(companyResponse);
     }
 

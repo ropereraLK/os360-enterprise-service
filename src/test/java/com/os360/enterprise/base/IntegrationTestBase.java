@@ -1,4 +1,3 @@
-
 package com.os360.enterprise.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
