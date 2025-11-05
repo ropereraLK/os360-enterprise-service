@@ -3,6 +3,10 @@ package com.os360.enterprise.controller;
 import com.os360.enterprise.dto.CompanyCreateRequest;
 import com.os360.enterprise.dto.CompanyResponse;
 import com.os360.enterprise.service.CompanyService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v2/companies")
+@Tag(name = "Company", description = "Operations related to companies, Version 1.0")
 public class CompanyControllerV1 {
 
     @Autowired
@@ -31,6 +36,11 @@ public class CompanyControllerV1 {
         return ResponseEntity.status(HttpStatus.OK).body(companies);
     }
 
+    @Operation(summary = "Get a company by ID", description = "Returns the company details by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the company"),
+            @ApiResponse(responseCode = "404", description = "Company not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Optional<CompanyResponse>> getCompany(
             @PathVariable UUID id) {
@@ -38,6 +48,11 @@ public class CompanyControllerV1 {
         return ResponseEntity.status(HttpStatus.OK).body(companyService.get(id));
     }
 
+    @Operation(summary = "Create a company", description = "Returns the company details by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Company Created"),
+            @ApiResponse(responseCode = "404", description = "Company Creation Failed")
+    })
     @PostMapping
     public ResponseEntity<CompanyResponse> createCompany(
             @RequestBody CompanyCreateRequest companyCreateRequest) {
