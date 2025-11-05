@@ -1,11 +1,16 @@
 package com.os360.enterprise.validator;
 
 import com.os360.enterprise.common.CommonUtils;
+import com.os360.enterprise.common.CountryUtils;
 import com.os360.enterprise.dto.CompanyCreateRequest;
 import com.os360.enterprise.entity.Company;
 import com.os360.enterprise.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class CompanyValidator {
@@ -15,29 +20,72 @@ public class CompanyValidator {
 
     public Company validateCreate(CompanyCreateRequest companyCreateRequest) {
         Company company = new Company();
-        //Validate for Duplicate Company Code
+
+        //Validate Parent Company
+        UUID parentId = companyCreateRequest.getParentCompany();
+        if (parentId != null) {
+            Company parentCompany = companyRepository.findById(parentId)
+                    .orElseThrow(() -> new IllegalArgumentException("Parent company not found: " + parentId));
+            company.setParentCompany(parentCompany);
+        }
+
+
+        //Validate companyCode
         if (!companyRepository.existsByCode(companyCreateRequest.getCode())) {
             company.setCode(companyCreateRequest.getCode());
+        } else {
+            throw new RuntimeException();
+        }
+
+        //Validate countryCode
+        if (CountryUtils.isValidAlpha2CountryCode(companyCreateRequest.getCountryCode())) {
+            company.setCountryCode(companyCreateRequest.getCountryCode());
+        } else {
+            throw new RuntimeException();
         }
 
         String externalId = companyCreateRequest.getExternalId();
         String externalSystem = companyCreateRequest.getExternalSystem();
 
-        if(CommonUtils.allNotBlank(externalId,externalSystem)){
+        //Validate externalId and externalSystem
+        if (CommonUtils.allNotBlank(externalId, externalSystem)) {
             if (!companyRepository.existsByExternalSystemAndExternalId(
-                    companyCreateRequest.getExternalSystem(),
-                    companyCreateRequest.getExternalSystem())) {
-                company.setCode(companyCreateRequest.getCode());
-            }else {
-                //Throw wxception1
+                    externalSystem,
+                    externalId)) {
+                company.setExternalSystem(externalSystem);
+                company.setExternalId(externalId);
+            } else {
+                //Throw Exception
                 throw new RuntimeException();
             }
 
-        }else{
+        } else {
             throw new RuntimeException();
         }
 
+        //Validate isSystemCompany
+        if (companyCreateRequest.getIsSystemCompany())
+            if (!companyRepository.existsByIsSystemCompanyTrue()) {
+                company.setSystemCompany(true);
+            } else {
+                throw new RuntimeException();
+            }
+        else {
+            company.setSystemCompany(false);
+        }
 
+        company.setValidFrom(
+                Optional.ofNullable(companyCreateRequest.getValidFrom())
+                        .orElse(LocalDate.of(1900, 1, 1))
+        );
+
+        company.setValidTo(
+                Optional.ofNullable(companyCreateRequest.getValidTo())
+                        .orElse(LocalDate.of(9999, 1, 1))
+        );
+
+        company.setActive(true);
+        company.setDeleted(false);
 
         return company;
     }
