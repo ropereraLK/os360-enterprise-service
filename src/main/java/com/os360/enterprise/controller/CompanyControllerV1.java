@@ -32,9 +32,9 @@ public class CompanyControllerV1 {
 
     @GetMapping("/{id}")
     public ResponseEntity<CompanyResponse> getCompany(
-            @PathVariable UUID id,
-            @RequestBody CompanyCreateRequest companyCreateRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(companyResponse);
+            @PathVariable UUID id) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(companyService.get(id));
     }
 
     @PostMapping

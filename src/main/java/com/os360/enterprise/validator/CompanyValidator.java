@@ -29,7 +29,6 @@ public class CompanyValidator {
             company.setParentCompany(parentCompany);
         }
 
-
         //Validate companyCode
         if (!companyRepository.existsByCode(companyCreateRequest.getCode())) {
             company.setCode(companyCreateRequest.getCode());
