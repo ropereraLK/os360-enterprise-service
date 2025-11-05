@@ -18,14 +18,14 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/v2/companies")
+@RequestMapping("/api/v1/companies")
 @Tag(name = "Company", description = "Operations related to companies, Version 1.0")
 public class CompanyControllerV1 {
 
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
+
     private CompanyResponse companyResponse;
 
     private List<CompanyResponse> companies;
@@ -54,7 +54,7 @@ public class CompanyControllerV1 {
             @ApiResponse(responseCode = "404", description = "Company Creation Failed")
     })
     @PostMapping
-    public ResponseEntity<CompanyResponse> createCompany(
+    public ResponseEntity<Optional<CompanyResponse>> createCompany(
             @RequestBody CompanyCreateRequest companyCreateRequest) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.create(companyCreateRequest));

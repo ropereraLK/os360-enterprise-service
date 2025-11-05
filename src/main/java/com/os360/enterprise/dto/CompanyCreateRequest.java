@@ -44,7 +44,7 @@ public class CompanyCreateRequest {
     // private Set<Site> sites;
     // private Set<CompanyTimeZone> timeZones;
 
-    private Boolean isSystemCompany;
+    private boolean isSystemCompany;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate validFrom;

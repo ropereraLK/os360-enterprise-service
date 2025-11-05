@@ -20,20 +20,15 @@ public class CompanyService {
     private CompanyRepository companyRepository;
 
     @Autowired
-    private Company company;
-
-    @Autowired
-    private CompanyResponse companyResponse;
-
-    @Autowired
     private CompanyValidator companyValidator;
 
     @Autowired
     private CompanyMapper companyMapper;
 
-    public CompanyResponse create(CompanyCreateRequest companyCreateRequest) {
-        companyRepository.save(companyValidator.validateCreate(companyCreateRequest));
-        return companyResponse;
+    public Optional<CompanyResponse> create(CompanyCreateRequest companyCreateRequest) {
+
+        Company company = companyRepository.save(companyValidator.validateCreate(companyCreateRequest));
+        return companyMapper.toResponse(company);
     }
 
     public Optional<CompanyResponse> get(UUID id) {

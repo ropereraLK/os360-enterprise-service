@@ -58,12 +58,10 @@ public class CompanyValidator {
                 throw new RuntimeException();
             }
 
-        } else {
-            throw new RuntimeException();
         }
 
         //Validate isSystemCompany
-        if (companyCreateRequest.getIsSystemCompany())
+        if (companyCreateRequest.isSystemCompany())
             if (!companyRepository.existsByIsSystemCompanyTrue()) {
                 company.setSystemCompany(true);
             } else {
@@ -85,6 +83,9 @@ public class CompanyValidator {
 
         company.setActive(true);
         company.setDeleted(false);
+
+        company.setName(companyCreateRequest.getName());
+        company.setLogoUrl(companyCreateRequest.getLogoUrl());
 
         return company;
     }
