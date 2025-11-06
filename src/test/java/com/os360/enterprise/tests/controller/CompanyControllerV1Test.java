@@ -1,4 +1,4 @@
-package com.os360.enterprise.controller;
+package com.os360.enterprise.tests.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
