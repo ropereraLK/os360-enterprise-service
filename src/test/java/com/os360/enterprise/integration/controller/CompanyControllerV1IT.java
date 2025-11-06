@@ -1,6 +1,6 @@
-package com.os360.enterprise.controller;
+package com.os360.enterprise.integration.controller;
 
-import com.os360.enterprise.base.IntegrationTestBase;
+import com.os360.enterprise.integration.base.IntegrationTestBase;
 import com.os360.enterprise.repository.CompanyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
