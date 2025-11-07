@@ -4,6 +4,7 @@ import com.os360.enterprise.common.CommonUtils;
 import com.os360.enterprise.common.CountryUtils;
 import com.os360.enterprise.dto.CompanyCreateRequest;
 import com.os360.enterprise.entity.Company;
+import com.os360.enterprise.enumurations.PartyType;
 import com.os360.enterprise.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -83,6 +84,7 @@ public class CompanyValidator {
 
         company.setActive(true);
         company.setDeleted(false);
+        company.setPartyType(String.valueOf(PartyType.COMPANY));
 
         company.setName(companyCreateRequest.getName());
         company.setLogoUrl(companyCreateRequest.getLogoUrl());

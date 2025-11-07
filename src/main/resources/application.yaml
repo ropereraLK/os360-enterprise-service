@@ -3,8 +3,8 @@ spring:
     name: Enterprise Service
   datasource:
     url: jdbc:postgresql://localhost:5432/os360_enterprise
-    username: os360_user
-    password: os360P@ssword
+    username: os360_admin
+    password: os360P@ssword@dmin
     driver-class-name: org.postgresql.Driver
     initialization-mode: never  # DB already created
   jpa:

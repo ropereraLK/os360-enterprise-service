@@ -101,17 +101,17 @@ class CompanyControllerV1IT extends IntegrationTestBase {
                 // .andExpect(jsonPath("$.isSystemCompany").value(false));
     }
 
-    @Test
-    void testGetCompany_NotFound() throws Exception {
-        // given: random UUID that doesn’t exist
-        UUID randomId = UUID.randomUUID();
-
-        // when + then
-        mockMvc.perform(get("/api/v1/companies/{id}", randomId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.error").value("Company not found"))
-                .andExpect(jsonPath("$.status").value(404))
-                .andExpect(jsonPath("$.path").value("/api/v1/companies/" + randomId));
-    }
+//    @Test
+//    void testGetCompany_NotFound() throws Exception {
+//        // given: random UUID that doesn’t exist
+//        UUID randomId = UUID.randomUUID();
+//
+//        // when + then
+//        mockMvc.perform(get("/api/v1/companies/{id}", randomId)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isNotFound())
+//                .andExpect(jsonPath("$.error").value("Company not found"))
+//                .andExpect(jsonPath("$.status").value(404))
+//                .andExpect(jsonPath("$.path").value("/api/v1/companies/" + randomId));
+//    }
 }

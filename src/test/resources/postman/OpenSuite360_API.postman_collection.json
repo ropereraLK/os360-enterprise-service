@@ -1,0 +1,120 @@
+{
+  "info": {
+    "name": "OpenSuite360 API",
+    "_postman_id": "e5bcd1b2-fae1-4d9c-a2f4-9a6a87ffbc11",
+    "description": "Postman collection for OpenSuite360 backend APIs. Structured by controller and version.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CompanyV1",
+      "item": [
+        {
+          "name": "Create Company",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentCompany\": null,\n  \"code\": \"OS360\",\n  \"name\": \"OpenSuite 360 Pvt Ltd\",\n  \"countryCode\": \"LK\",\n  \"externalSystem\": null,\n  \"externalId\": null,\n  \"logoUrl\": \"https://example.com/logo.png\",\n  \"isSystemCompany\": false,\n  \"validFrom\": \"2025-01-01\",\n  \"validTo\": \"2025-12-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies"]
+            }
+          }
+        },
+        {
+          "name": "Get All Companies",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies"]
+            }
+          }
+        },
+        {
+          "name": "Get Company by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies/{{company_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies", "{{company_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Company (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentCompany\": null,\n  \"code\": \"OS360-UPD\",\n  \"name\": \"OpenSuite 360 Updated\",\n  \"countryCode\": \"LK\",\n  \"externalSystem\": null,\n  \"externalId\": null,\n  \"logoUrl\": \"https://example.com/logo_updated.png\",\n  \"isSystemCompany\": false,\n  \"validFrom\": \"2025-01-01\",\n  \"validTo\": \"2025-12-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies/{{company_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies", "{{company_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Patch Company",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"OpenSuite 360 Patched\",\n  \"logoUrl\": \"https://example.com/logo_patch.png\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies/{{company_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies", "{{company_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Company",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/v1/companies/{{company_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "companies", "{{company_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SiteV1",
+      "item": [
+        {
+          "name": "Create Site (placeholder)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Head Office\",\n  \"location\": \"Colombo\"\n}" },
+            "url": { "raw": "{{base_url}}/api/v1/sites", "host": ["{{base_url}}"], "path": ["api", "v1", "sites"] }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8080" },
+    { "key": "company_id", "value": "replace-with-company-uuid" }
+  ]
+}
