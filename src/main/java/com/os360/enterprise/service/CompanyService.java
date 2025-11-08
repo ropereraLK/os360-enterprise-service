@@ -2,19 +2,17 @@ package com.os360.enterprise.service;
 
 import com.os360.enterprise.dto.CompanyCreateRequest;
 import com.os360.enterprise.dto.CompanyResponse;
-import com.os360.enterprise.dto.CompanyPatchRequest;
 import com.os360.enterprise.entity.Company;
 import com.os360.enterprise.entityUtils.EntityPatcher;
+import com.os360.enterprise.exception.CompanyAlreadyDeletedOperationException;
+import com.os360.enterprise.exception.CompanyNotFoundOperationException;
 import com.os360.enterprise.mapper.CompanyMapper;
 import com.os360.enterprise.repository.CompanyRepository;
 import com.os360.enterprise.validator.CompanyValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -47,16 +45,15 @@ public class CompanyService {
         return companyMapper.toResponse(company);
     }
 
-    public ResponseEntity<Void> softDelete(UUID id) {
-        // Step 1: Load the existing entity
+    public void softDelete(UUID id) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Company not found: " + id));
+                .orElseThrow(() -> new CompanyNotFoundOperationException(id));
 
-        // already deleted?
         if (company.isDeleted()) {
-            return ResponseEntity.status(HttpStatus.GONE).build();
+            throw new CompanyAlreadyDeletedOperationException(id);
         }
 
+        //Add deletion details
         company.setDeleted(true);
         company.setDeletedAt(OffsetDateTime.now());
 
@@ -68,7 +65,5 @@ public class CompanyService {
 //        entityPatcher.patchEntity(company, companyPatchRequest);
         companyRepository.save(company);
 
-        return ResponseEntity.noContent().build();
-    }
     }
 }

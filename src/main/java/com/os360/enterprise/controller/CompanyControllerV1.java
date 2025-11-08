@@ -78,7 +78,7 @@ public class CompanyControllerV1 {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> DeleteCompany(
             @PathVariable UUID id) {
-        return companyService.softDelete(id);
-        //return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        companyService.softDelete(id);
+        return ResponseEntity.noContent().build();
     }
 }
