@@ -8,6 +8,7 @@ import com.os360.enterprise.repository.CompanyRepository;
 import com.os360.enterprise.validator.CompanyValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,5 +37,9 @@ public class CompanyService {
                 .orElseThrow(() -> new EntityNotFoundException("Company not found: " + id));
 
         return companyMapper.toResponse(company);
+    }
+
+    public ResponseEntity<Void> softDelete(UUID id) {
+        return null;
     }
 }
