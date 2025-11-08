@@ -4,8 +4,9 @@ import com.os360.enterprise.dto.CompanyCreateRequest;
 import com.os360.enterprise.dto.CompanyResponse;
 import com.os360.enterprise.entity.Company;
 import com.os360.enterprise.entityUtils.EntityPatcher;
-import com.os360.enterprise.exception.CompanyAlreadyDeletedOperationException;
-import com.os360.enterprise.exception.CompanyNotFoundOperationException;
+import CompanyAlreadyDeletedOperationException;
+import CompanyNotFoundOperationException;
+import com.os360.enterprise.exception.domain.EntityAlreadyDeletedException;
 import com.os360.enterprise.mapper.CompanyMapper;
 import com.os360.enterprise.repository.CompanyRepository;
 import com.os360.enterprise.validator.CompanyValidator;
@@ -47,10 +48,10 @@ public class CompanyService {
 
     public void softDelete(UUID id) {
         Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new CompanyNotFoundOperationException(id));
+                .orElseThrow(() -> new EntityNotFoundException(Company.class, id));
 
         if (company.isDeleted()) {
-            throw new CompanyAlreadyDeletedOperationException(id);
+            throw new EntityAlreadyDeletedException(Company.class, id);
         }
 
         //Add deletion details

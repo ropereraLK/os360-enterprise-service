@@ -1,6 +1,5 @@
 package com.os360.enterprise.exception;
 
-import com.os360.enterprise.exception.ApplicationException;
 import com.os360.enterprise.exception.domain.DomainException;
 import com.os360.enterprise.exception.validation.ValidationException;
 import com.os360.enterprise.exception.http.HttpException;
