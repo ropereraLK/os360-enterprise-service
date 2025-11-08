@@ -1,8 +1,12 @@
 package com.os360.enterprise.exception;
 
 import com.os360.enterprise.exception.domain.DomainException;
+import com.os360.enterprise.exception.dto.ProblemDetails;
 import com.os360.enterprise.exception.validation.ValidationException;
 import com.os360.enterprise.exception.http.HttpException;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Global exception handler for the application.
@@ -29,19 +34,30 @@ import java.util.Map;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    private static final Logger LOGGER   = LogManager.getLogger(GlobalExceptionHandler.class);
     /**
      * Handles all domain/entity exceptions.
      */
     @ExceptionHandler(DomainException.class)
-    public ResponseEntity<Map<String, Object>> handleDomainException(DomainException ex) {
-        return buildResponse(
-                ex.getMessage(),
-                ex.getHttpStatus().value(),
+    public ResponseEntity<ProblemDetails> handleDomainException(DomainException ex, HttpServletRequest request) {
+        String errorKey = UUID.randomUUID().toString();
+
+        // Log full details internally
+        LOGGER.error("ErrorKey {} - DomainException: {}, Metadata: {}", errorKey, ex.getMessage(), ex.getMetadata(), ex);
+
+        ProblemDetails problem = new ProblemDetails(
+                "/errors/" + ex.getClass().getSimpleName(),
                 ex.getHttpStatus().getReasonPhrase(),
-                ex.getMetadata()
+                ex.getHttpStatus().value(),
+                ex.getMessage(),
+                request.getRequestURI(),
+                errorKey,
+                ProblemDetails.filterSensitiveMetadata(ex.getMetadata())
         );
+
+        return ResponseEntity.status(ex.getHttpStatus()).body(problem);
     }
+
 
     /**
      * Handles all validation exceptions.
