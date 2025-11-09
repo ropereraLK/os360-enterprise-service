@@ -1,65 +1,61 @@
-package com.os360.enterprise.exception.validation;
+package com.os360.enterprise.exception;
 
-import com.os360.enterprise.exception.ApplicationException;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-import java.util.Collections;
 import java.util.Map;
 
 /**
- * Exception thrown when a validation error occurs.
+ * Exception representing validation errors in API requests or domain entities.
  * <p>
- * Typically used in the service or controller layer to indicate that
- * input data does not satisfy business rules or constraints.
- * </p>
- *
- * <p>Features:</p>
- * <ul>
- *     <li>Default HTTP status 400 Bad Request</li>
- *     <li>Optional metadata to include additional context (e.g., invalid field names)</li>
- *     <li>Integrates with GlobalExceptionHandler for consistent API error responses</li>
- * </ul>
- *
- * <p>Example usage:</p>
- * <pre>
- *     if (name == null || name.isBlank()) {
- *         throw new ValidationException("Name cannot be blank", Map.of("field", "name"));
- *     }
- * </pre>
+ * Can carry metadata about the invalid fields to provide more context to API consumers.
+ * Typically results in HTTP 400 Bad Request responses.
  */
-@Getter
 public class ValidationException extends ApplicationException {
 
-    /**
-     * The HTTP status to return to the client. Always 400 Bad Request for validation errors.
-     */
-    private final HttpStatus status = HttpStatus.BAD_REQUEST;
-
-    /**
-     * Optional metadata providing additional context about the validation failure.
-     * For example, field names or invalid values.
-     */
+    private final HttpStatus httpStatus;
     private final Map<String, Object> metadata;
 
     /**
-     * Constructs a new ValidationException with the specified message and metadata.
+     * Constructs a ValidationException with a message.
      *
-     * @param message  human-readable message describing the validation error
-     * @param metadata optional additional context about the validation failure
+     * @param message the human-readable error message
      */
-    public ValidationException(String message, Map<String, Object> metadata) {
+    public ValidationException(String message) {
         super(message);
-        this.metadata = metadata != null ? metadata : Collections.emptyMap();
+        this.httpStatus = HttpStatus.BAD_REQUEST;
+        this.metadata = Map.of();
     }
 
     /**
-     * Constructs a new ValidationException with the specified message.
-     * No additional metadata is provided.
+     * Constructs a ValidationException with a message and single field metadata.
      *
-     * @param message human-readable message describing the validation error
+     * @param message the human-readable error message
+     * @param field   the field name that caused the validation failure
+     * @param value   the value that was invalid (optional)
      */
-    public ValidationException(String message) {
-        this(message, Collections.emptyMap());
+    public ValidationException(String message, String field, Object value) {
+        super(message);
+        this.httpStatus = HttpStatus.BAD_REQUEST;
+        this.metadata = Map.of(field, value);
+    }
+
+    /**
+     * Constructs a ValidationException with a message and arbitrary metadata map.
+     *
+     * @param message  the human-readable error message
+     * @param metadata a map containing field names and invalid values
+     */
+    public ValidationException(String message, Map<String, Object> metadata) {
+        super(message);
+        this.httpStatus = HttpStatus.BAD_REQUEST;
+        this.metadata = metadata;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
     }
 }

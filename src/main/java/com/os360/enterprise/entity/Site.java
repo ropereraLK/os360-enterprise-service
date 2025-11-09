@@ -9,6 +9,25 @@ import lombok.Setter;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
+
+/**
+ * Entity representing a physical or logical site/office within a company.
+ *
+ * Stores core site information like code, name, type, default status, and active/deleted flags.
+ * Tracks audit information including creation, modification, and deletion details.
+ * Supports optimistic locking via the `version` field.
+ *
+ * Indexes:
+ * - site_idx_company: for fast lookup of sites by company.
+ * - site_idx_site_code: for quick lookup by site code.
+ *
+ * TODOs indicate planned relationships and attributes to be implemented later:
+ * - Time zone per site (`siteTimeZone`), linked to `CompanyTimeZone`.
+ * - Supported languages (`companyLanguages`) for each site.
+ * - Communication methods (`communicationMethods`) list.
+ */
+
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,9 +58,10 @@ public class Site {
     @Column(name = "site_type", nullable = false)
     private SiteType siteType;
 
-    @ManyToOne
-    @JoinColumn(name = "company_time_zone_id", nullable = false)
-    private CompanyTimeZone siteTimeZone;
+//TODO
+//    @ManyToOne
+//    @JoinColumn(name = "company_time_zone_id", nullable = false)
+//    private CompanyTimeZone siteTimeZone;
 //TODO
 //    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 //    private Set<CompanyLanguage> companyLanguages;
