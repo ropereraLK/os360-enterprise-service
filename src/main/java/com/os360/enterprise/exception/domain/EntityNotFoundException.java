@@ -20,7 +20,7 @@ public class EntityNotFoundException extends DomainException {
      * @param id         the identifier of the entity (any type)
      * @param <T>        type of the identifier
      */
-    public <T> EntityNotFoundException(Class<?> entityType, Object id) {
+    public EntityNotFoundException(Class<?> entityType, Object id) {
         super(
                 entityType.getSimpleName() + " not found: " + id,
                 HttpStatus.NOT_FOUND,
