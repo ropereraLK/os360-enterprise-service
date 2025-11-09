@@ -19,7 +19,7 @@ import jakarta.transaction.Transactional;
 @TestPropertySource(locations = "classpath:application-test.yml")
 @Transactional
 @SpringBootTest
-public abstract class IntegrationTestBase {
+public abstract class  IntegrationTestBase {
 
     /**
      * Nested configuration to define scan base packages and exclude unwanted auto-configurations.
