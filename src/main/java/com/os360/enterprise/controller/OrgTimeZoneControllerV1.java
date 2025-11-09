@@ -1,6 +1,6 @@
 package com.os360.enterprise.controller;
 
-import com.os360.enterprise.entity.OrgTimeZone;
+import com.os360.enterprise.dto.OrgTimeZoneResponse;
 import com.os360.enterprise.service.OrgTimeZoneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,66 +13,63 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST controller for managing organization time zones.
- * Provides endpoints to:
- * - List all active time zones
- * - Get a time zone by its ID
- * - Get a time zone by its IANA zone ID
+ * REST controller for organization time zones (OrgTimeZone).
+ * <p>
+ * Exposes endpoints to retrieve all active time zones, or get a time zone
+ * by ID or by IANA zone code. All responses use OrgTimeZoneResponse DTOs.
+ * </p>
  */
 @RestController
 @RequestMapping("/api/v1/timezones")
-@Tag(name = "TimeZone", description = "Operations related to organization time zones, Version 1.0")
+@Tag(name = "OrgTimeZone", description = "Operations related to organization time zones, Version 1.0")
 public class OrgTimeZoneControllerV1 {
 
     @Autowired
     private OrgTimeZoneService orgTimeZoneService;
 
     /**
-     * Get all active organization time zones.
+     * Retrieve all active time zones.
      *
-     * @return list of active OrgTimeZone entities
+     * @return List of OrgTimeZoneResponse
      */
     @GetMapping
-    @Operation(summary = "Get all active time zones", description = "Returns a list of all active organization time zones")
+    @Operation(summary = "Get all active time zones", description = "Returns all active organization time zones")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of time zones returned successfully")
+            @ApiResponse(responseCode = "200", description = "Time zones retrieved successfully")
     })
-    public ResponseEntity<List<OrgTimeZone>> getAllTimeZones() {
-        List<OrgTimeZone> timeZones = orgTimeZoneService.getAllActiveTimeZones();
-        return ResponseEntity.ok(timeZones);
+    public ResponseEntity<List<OrgTimeZoneResponse>> getAllTimeZones() {
+        return ResponseEntity.ok(orgTimeZoneService.getAllActiveTimeZones());
     }
 
     /**
-     * Get a time zone by its database ID.
+     * Retrieve a time zone by its database ID.
      *
-     * @param id the primary key of the time zone
-     * @return the OrgTimeZone entity
+     * @param id Time zone primary key
+     * @return OrgTimeZoneResponse
      */
     @GetMapping("/{id}")
-    @Operation(summary = "Get time zone by ID", description = "Returns a specific time zone by its database ID")
+    @Operation(summary = "Get time zone by ID", description = "Returns a single time zone by database ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Time zone found"),
             @ApiResponse(responseCode = "404", description = "Time zone not found")
     })
-    public ResponseEntity<OrgTimeZone> getTimeZoneById(@PathVariable int id) {
-        OrgTimeZone timeZone = orgTimeZoneService.getById(id);
-        return ResponseEntity.ok(timeZone);
+    public ResponseEntity<OrgTimeZoneResponse> getTimeZoneById(@PathVariable int id) {
+        return ResponseEntity.ok(orgTimeZoneService.getById(id));
     }
 
     /**
-     * Get a time zone by its IANA zone ID.
+     * Retrieve a time zone by its IANA zone ID.
      *
-     * @param zoneId the IANA zone ID (e.g., "Asia/Kolkata")
-     * @return the OrgTimeZone entity
+     * @param zoneId Time zone string ID (e.g., "Asia/Kolkata")
+     * @return OrgTimeZoneResponse
      */
-    @GetMapping("/code/{zoneId}")
-    @Operation(summary = "Get time zone by zone ID", description = "Returns a specific time zone by its IANA zone ID")
+    @GetMapping("/by-zone/{zoneId}")
+    @Operation(summary = "Get time zone by zone ID", description = "Returns a single time zone by IANA zone ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Time zone found"),
             @ApiResponse(responseCode = "404", description = "Time zone not found")
     })
-    public ResponseEntity<OrgTimeZone> getTimeZoneByZoneId(@PathVariable String zoneId) {
-        OrgTimeZone timeZone = orgTimeZoneService.getByZoneId(zoneId);
-        return ResponseEntity.ok(timeZone);
+    public ResponseEntity<OrgTimeZoneResponse> getTimeZoneByZoneId(@PathVariable String zoneId) {
+        return ResponseEntity.ok(orgTimeZoneService.getByZoneId(zoneId));
     }
 }
