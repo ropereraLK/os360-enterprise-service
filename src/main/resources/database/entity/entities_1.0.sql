@@ -108,3 +108,25 @@ CREATE TABLE site (
 -- Indexes
 CREATE INDEX site_idx_company ON site(company_id);
 CREATE INDEX site_idx_site_code ON site(site_code);
+
+-- ==========================================================
+-- Table: person  (Subclass of Party)
+-- ==========================================================
+
+CREATE TABLE person (
+    id UUID PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    middle_name VARCHAR(100),
+    last_name VARCHAR(100) NOT NULL,
+    preferred_name VARCHAR(100),
+    gender VARCHAR(20),
+    date_of_birth DATE,
+    profile_image_url VARCHAR(255),
+    title VARCHAR(20),
+    CONSTRAINT fk_person_party FOREIGN KEY (id)
+        REFERENCES party (id) ON DELETE CASCADE
+);
+
+-- Indexes for commonly queried columns
+CREATE INDEX person_idx_name ON person (last_name, first_name);
+CREATE INDEX person_idx_gender ON person (gender);
