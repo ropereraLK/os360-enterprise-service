@@ -21,11 +21,11 @@ public class SiteCreateRequest {
 
     @NotBlank(message = "Site code is required")
     @Size(max = 100, message = "Site code must not exceed 100 characters")
-    private String siteCode;
+    private String code;
 
     @NotBlank(message = "Site name is required")
     @Size(max = 300, message = "Site name must not exceed 300 characters")
-    private String siteName;
+    private String name;
 
     @NotNull(message = "Site type is required")
     private SiteType siteType;
