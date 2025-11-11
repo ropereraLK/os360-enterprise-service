@@ -51,8 +51,8 @@ public class PersonControllerV1 {
      */
     @GetMapping
     @Operation(summary = "Get all persons", description = "Retrieves a list of all persons or filtered results")
-    public ResponseEntity<List<PersonResponse>> getPersons() {
-        List<PersonResponse> persons = personService.getAll();
+    public ResponseEntity<List<Optional<PersonResponse>>> getPersons() {
+        List<Optional<PersonResponse>> persons = personService.getAll();
         return ResponseEntity.ok(persons);
     }
 
@@ -72,6 +72,7 @@ public class PersonControllerV1 {
     public ResponseEntity<Optional<PersonResponse>> getPerson(@PathVariable UUID id) {
         return ResponseEntity.ok(personService.get(id));
     }
+
 
     /**
      * Creates a new person entity.

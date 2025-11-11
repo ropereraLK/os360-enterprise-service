@@ -48,8 +48,7 @@ public class PersonService {
      *
      * @return list of {@link PersonResponse}.
      */
-    @Transactional(readOnly = true)
-    public List<PersonResponse> getAll() {
+    public List<Optional<PersonResponse>> getAll() {
         return personRepository.findAllByIsDeletedFalse()
                 .stream()
                 .map(personMapper::toResponse)
@@ -63,14 +62,13 @@ public class PersonService {
      * @return Optional of {@link PersonResponse}.
      * @throws EntityNotFoundException if person is not found.
      */
-    @Transactional(readOnly = true)
     public Optional<PersonResponse> get(UUID id) {
-        return Optional.ofNullable(
-                personRepository.findByIdAndIsDeletedFalse(id)
-                        .map(personMapper::toResponse)
-                        .orElseThrow(() -> new EntityNotFoundException(Person.class, id))
-        );
+        return personRepository.findByIdAndIsDeletedFalse(id)
+                .map(personMapper::toResponse)
+                .orElseThrow(() -> new EntityNotFoundException(Person.class, id));
     }
+
+
 
     /**
      * Creates a new person entity.
@@ -89,7 +87,7 @@ public class PersonService {
         person.setVersion(0L);
 
         Person saved = personRepository.save(person);
-        return Optional.of(personMapper.toResponse(saved));
+        return personMapper.toResponse(saved);
     }
 
     /**
@@ -109,7 +107,7 @@ public class PersonService {
         existing.setLastModifiedAt(OffsetDateTime.now());
 
         Person saved = personRepository.save(existing);
-        return Optional.of(personMapper.toResponse(saved));
+        return personMapper.toResponse(saved);
     }
 
     /**
@@ -129,7 +127,7 @@ public class PersonService {
         existing.setLastModifiedAt(OffsetDateTime.now());
 
         Person saved = personRepository.save(existing);
-        return Optional.of(personMapper.toResponse(saved));
+        return  personMapper.toResponse(saved);
     }
 
     /**
