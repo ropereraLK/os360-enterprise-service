@@ -26,7 +26,7 @@ public class SiteMapper {
         response.setCompanyId(site.getCompany() != null ? site.getCompany().getId() : null);
         response.setCode(site.getSiteCode());
         response.setName(site.getSiteName());
-        response.setSiteType(site.getSiteType() != null ? site.getSiteType().name() : null);
+       // response.setSiteType(site.getSiteType() != null ? site.getSiteType().name() : null);
         response.setDefault(site.isDefault());
         response.setActive(site.isActive());
 
