@@ -1,8 +1,8 @@
-package com.os360.enterprise.validation;
+package com.os360.enterprise.validator;
 
 import com.os360.enterprise.dto.*;
 import com.os360.enterprise.entity.Person;
-import com.os360.enterprise.exception.ValidationException;
+import com.os360.enterprise.exception.validation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

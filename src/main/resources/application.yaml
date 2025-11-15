@@ -9,7 +9,7 @@ spring:
     initialization-mode: never  # DB already created
   jpa:
     hibernate:
-      ddl-auto: validate   # checks entities against DB
+      ddl-auto: none   # checks entities against DB
     show-sql: true         # optional in dev
     properties:
       hibernate:

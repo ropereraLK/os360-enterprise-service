@@ -26,11 +26,11 @@ public class UserMapper {
         response.setEnabled(user.isEnabled());
 
         // Map active roles
-        Set<String> activeRoles = user.getRoleAssignments().stream()
-                .filter(r -> r.getExpiresAt() == null || r.getExpiresAt().isAfter(OffsetDateTime.now()))
-                .map(r -> r.getRole().getName())
-                .collect(Collectors.toSet());
-        response.setRoles(activeRoles);
+//        Set<String> activeRoles = user.getRoleAssignments().stream()
+//                .filter(r -> r.getExpiresAt() == null || r.getExpiresAt().isAfter(OffsetDateTime.now()))
+//                .map(r -> r.getRole().getName())
+//                .collect(Collectors.toSet());
+//        response.setRoles(activeRoles);
 
         // Map inherited Person fields
         response.setFirstName(user.getFirstName());

@@ -80,7 +80,7 @@ public class Person extends Party {
     private String profileImageUrl;
 
     /** The person's title or honorific (e.g., Mr., Ms., Dr., Prof.). */
-    @Column(name = "title", length = 20)
+    @Enumerated(EnumType.STRING)
     private PersonTitle title;
 
 }

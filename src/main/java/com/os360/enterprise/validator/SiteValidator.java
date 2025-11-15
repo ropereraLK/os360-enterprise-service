@@ -4,7 +4,7 @@ import com.os360.enterprise.dto.SiteCreateRequest;
 import com.os360.enterprise.dto.SiteUpdateRequest;
 import com.os360.enterprise.entity.Company;
 import com.os360.enterprise.entity.Site;
-import com.os360.enterprise.exception.ValidationException;
+
 import com.os360.enterprise.exception.validation.*;
 import com.os360.enterprise.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +44,8 @@ public class SiteValidator {
 
         Site site = new Site();
         site.setCompany(company);
-        site.setSiteCode(request.getSiteCode());
-        site.setSiteName(request.getSiteName());
+//        site.setSiteCode(request.getSiteCode());
+//        site.setSiteName(request.getSiteName());
         site.setSiteType(request.getSiteType());
         site.setDefault(request.isDefault());
         site.setActive(true);
@@ -97,12 +97,12 @@ public class SiteValidator {
         }
 
         if (request instanceof SiteCreateRequest createRequest) {
-            if (createRequest.getSiteCode() == null || createRequest.getSiteCode().isBlank()) {
-                throw new ValidationException("Site code is mandatory", "siteCode", null);
-            }
-            if (createRequest.getSiteName() == null || createRequest.getSiteName().isBlank()) {
-                throw new ValidationException("Site name is mandatory", "siteName", null);
-            }
+//            if (createRequest.getSiteCode() == null || createRequest.getSiteCode().isBlank()) {
+//                throw new ValidationException("Site code is mandatory", "siteCode", null);
+//            }
+//            if (createRequest.getSiteName() == null || createRequest.getSiteName().isBlank()) {
+//                throw new ValidationException("Site name is mandatory", "siteName", null);
+//            }
             if (createRequest.getSiteType() == null) {
                 throw new ValidationException("Site type is mandatory", "siteType", null);
             }

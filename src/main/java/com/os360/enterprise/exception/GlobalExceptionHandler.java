@@ -2,11 +2,11 @@ package com.os360.enterprise.exception;
 
 import com.os360.enterprise.exception.domain.DomainException;
 import com.os360.enterprise.exception.dto.ProblemDetails;
-import com.os360.enterprise.exception.validation.ValidationException;
+import com.os360.enterprise.exception.validation.*;
 import com.os360.enterprise.exception.http.HttpException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,7 +34,7 @@ import java.util.UUID;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger LOGGER   = LogManager.getLogger(GlobalExceptionHandler.class);
+   // private static final Logger LOGGER   = LogManager.getLogger(GlobalExceptionHandler.class);
     /**
      * Handles all domain/entity exceptions.
      */
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
         String errorKey = UUID.randomUUID().toString();
 
         // Log full details internally
-        LOGGER.error("ErrorKey {} - DomainException: {}, Metadata: {}", errorKey, ex.getMessage(), ex.getMetadata(), ex);
+    //    LOGGER.error("ErrorKey {} - DomainException: {}, Metadata: {}", errorKey, ex.getMessage(), ex.getMetadata(), ex);
 
         ProblemDetails problem = new ProblemDetails(
                 "/errors/" + ex.getClass().getSimpleName(),

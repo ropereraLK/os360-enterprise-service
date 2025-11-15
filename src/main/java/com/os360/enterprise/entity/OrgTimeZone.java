@@ -37,8 +37,9 @@ public class OrgTimeZone {
      * ISO 3166-1 alpha-2 country code, e.g., "IN" for India.
      * Useful for filtering or grouping by country.
      */
-    @Column(name = "country_code", length = 2)
+    @Column(columnDefinition = "bpchar(2)")
     private String countryCode;
+
 
     /**
      * Friendly display name, e.g., "India Standard Time".
